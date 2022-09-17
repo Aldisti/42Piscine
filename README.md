@@ -1,2 +1,2 @@
 # Piscine-42
-Piscine 42 Settembre 2022
+Piscine Settembre 2022
