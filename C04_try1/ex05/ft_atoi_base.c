@@ -6,7 +6,7 @@
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 11:47:10 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/17 14:12:32 by adi-stef         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:34:09 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -121,7 +121,7 @@ int	ft_atoi_base(char *str, char *base)
 			s += ft_sn_ln(str[i], 0, base);
 			if (ft_bc(base, str[i], 1) == 1)
 			{
-				if (j != -1)
+				if (j == -1)
 				{
 					puts("Qui entra");
 					j = i;

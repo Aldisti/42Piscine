@@ -5,82 +5,98 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/16 08:42:31 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/16 09:52:04 by adi-stef         ###   ########.fr       */
+/*   Created: 2022/09/20 12:25:55 by adi-stef          #+#    #+#             */
+/*   Updated: 2022/09/20 17:05:28 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
 
-int	ft_sign_check(int n)
+int	ft_get_sign(char *str, int i, int j, int c)
 {
-	if (n == 43)
-		return (1);
-	else if (n == 45)
-		return (-1);
-	else
-		return (0);
+	while (str[++i])
+	{
+		if (str[i] == 43 || str[i] == 45)
+		{
+			if (j == -1)
+				j = 0;
+			if (str[i] == 43)
+				c++;
+			else if (str[i] == 45)
+				c--;
+		}
+		else if (j != -1 || (str[i] != 45 && str[i] != 43 && str[i] != 32
+				&& str[i] != '\t' && str[i] != '\n' && str[i] != '\v'
+				&& str[i] != '\f' && str[i] != '\r'))
+		{
+			if (c < 0)
+				return (-1);
+			else
+				return (1);
+		}
+	}
+	return (1);
 }
 
-int	ft_strtoint(char *str, int sign)
+int	ft_get_div(char *str)
 {
 	int	i;
-	int	div;
-	int	num;
+	int	j;
 
-	num = 0;
-	div = 1;
-	i = 1;
-	while (str[i] != '\0')
-	{
-		i++;
-		div *= 10;
-	}
+	j = 1;
 	i = 0;
-	while (div != 0)
+	while (str[++i])
+		j *= 10;
+	return (j);
+}
+
+char	*ft_get_nbr(char *str, int i, int j, int k)
+{
+	while (str[++i] != 0)
 	{
-		num += (str[i] - 48) * div;
-		div /= 10;
-		i++;
+		if (str[i] == 43 || str[i] == 45 || str[i] == 32 || str[i] == '\t'
+			|| str[i] == '\n' || str[i] == '\v' || str[i] == '\f'
+			|| str[i] == '\r')
+			k++;
+		if (str[i] >= 48 && str[i] <= 57)
+		{
+			if (j == -1 && i == k)
+				j = i;
+		}
+		else if (j != -1)
+		{
+			str[i] = 0;
+			return (&str[j]);
+		}
 	}
-	if (sign < 0)
-		return (-num);
-	else
-		return (num);
+	return ("0");
 }
 
 int	ft_atoi(char *str)
 {
 	int	sign;
+	int	res;
+	int	div;
 	int	i;
-	int	j;
 
-	i = 0;
-	j = -1;
-	sign = 0;
-	while (str[i] != 0)
+	i = -1;
+	res = 0;
+	div = 0;
+	sign = ft_get_sign(str, -1, -1, 0);
+	str = ft_get_nbr(str, -1, -1, 0);
+	while (str[++i])
 	{
-		sign += ft_sign_check(str[i]);
-		if (str[i] >= 48 && str[i] <= 57)
-		{
-			if (j == -1)
-				j = i;
-		}
-		else if (str[i] != 43 && str[i] != 45)
-		{
-			if (j != -1)
-			{
-				str[i] = '\0';
-				return (ft_strtoint(&str[j], sign));
-			}
-		}
-		i++;
+		if (div == 0)
+			div = ft_get_div(&str[i]);
+		res += (str[i] - 48) * div;
+		div /= 10;
 	}
-	return (0);
+	return (res * sign);
 }
 
 int	main(void)
 {
-	char	a[] = " ---+--+0000   ab567";
+	char	a[] = "\n\v\t\f		++	-12345610m584mkmskjsh";
 
-	printf(">%d\n", ft_atoi(a));
+	printf("%d\n", ft_atoi(a));
 }
+

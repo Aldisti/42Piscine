@@ -6,7 +6,7 @@
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 10:24:06 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/18 12:20:05 by adi-stef         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:29:30 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -16,7 +16,7 @@ int	ft_strlen(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i])
 		i++;
 	return (i);
 }
@@ -43,7 +43,7 @@ int	ft_base_control(char *base)
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	if (ft_base_control(base) == 1 && ft_strlen(base) > 1)
+	if (ft_base_control(base) && ft_strlen(base) > 1)
 	{
 		if (nbr == 0)
 			write(1, &nbr, 1);
@@ -59,7 +59,7 @@ void	ft_putnbr_base(int nbr, char *base)
 		}
 	}
 }
-
+/*
 int	main(void)
 {
 	int		nbr;
@@ -68,3 +68,4 @@ int	main(void)
 	nbr = -;
 	ft_putnbr_base(nbr, base);
 }
+*/
