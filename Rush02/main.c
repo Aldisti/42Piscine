@@ -6,7 +6,7 @@
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:13:09 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/25 19:17:06 by adi-stef         ###   ########.fr       */
+/*   Updated: 2022/09/25 19:44:54 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -39,6 +39,6 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	buf = ft_make_list("numbers.dict", ft_buflen("numbers.dict"));
-	ft_nbr_parse(argv[1], buf);
+	ft_nbr_parse(ft_atoi(argv[1]), buf);
 	ft_free(buf);
 }

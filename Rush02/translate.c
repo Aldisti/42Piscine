@@ -6,7 +6,7 @@
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:10:19 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/25 19:20:03 by adi-stef         ###   ########.fr       */
+/*   Updated: 2022/09/25 19:57:19 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -15,31 +15,43 @@
 #include <fcntl.h>
 
 void	ft_print_char(char *nbr, char **buf, int len);
+int		ft_buflen(char *path);
 void	ft_suffix(int len, char **buf);
 int		ft_strlen(char *str);
 void	ft_print(char *str);
 char	*ft_strdup(char *src);
+void	ft_case2(char *nbr, char **buf);
+void	ft_case1(char *nbr, char **buf);
 
 void	ft_doppietta(char *nbr, char **buf)
 {
 	char	*temp;
 	char	c;
 
-	c = nbr[1];
-	nbr[1] = 48;
-	temp = ft_strdup(&nbr[0]);
-	ft_print_char(temp, buf, 2);
-	if (c > 48)
-		ft_print_char(&c, buf, 1);
-	free(temp);
+	if (nbr[0] > 49)
+	{
+		c = nbr[1];
+		nbr[1] = 48;
+		temp = ft_strdup(&nbr[0]);
+		ft_print_char(temp, buf, 2);
+		if (c > 48)
+			ft_print_char(&c, buf, 1);
+		free(temp);
+	}
+	else if (nbr[0] == 49)
+	{
+		temp = ft_strdup(nbr);
+		ft_print_char(temp, buf, 2);
+		free(temp);
+	}	
 }
 
-void	ft_hundred(char c, char **buf, int len)
+void	ft_hundred(char c, char **buf)
 {
 	if (c > 48)
 	{
 		ft_print_char(&c, buf, 1);
-		ft_suffix(len, buf);
+		ft_suffix(3, buf);
 	}	
 }
 
@@ -48,7 +60,7 @@ void	ft_tripletta(char *nbr, char **buf)
 	char	*temp;
 	char	c;
 
-	ft_hundred(nbr[0], buf, ft_strlen(nbr));
+	ft_hundred(nbr[0], buf);
 	if (nbr[1] == 49)
 	{
 		temp = ft_strdup(&nbr[1]);
@@ -87,15 +99,13 @@ void	ft_nbr_parse(char *nbr, char **buf)
 	}
 	else if (ft_strlen(nbr) % 3 == 1)
 	{
-		ft_print_char(nbr, buf, 1);
-		ft_suffix(ft_strlen(nbr), buf);
+		ft_case1(nbr, buf);
 		if (ft_strlen(nbr) > 3)
 			ft_nbr_parse(&nbr[1], buf);
 	}
 	else if (ft_strlen(nbr) % 3 == 2)
 	{
-		ft_doppietta(nbr, buf);
-		ft_suffix(ft_strlen(nbr), buf);
+		ft_case2(nbr, buf);
 		if (ft_strlen(nbr) > 3)
 			ft_nbr_parse(&nbr[2], buf);
 	}
