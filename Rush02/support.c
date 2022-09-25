@@ -6,7 +6,7 @@
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 10:48:11 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/25 13:46:16 by adi-stef         ###   ########.fr       */
+/*   Updated: 2022/09/25 19:14:32 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -20,8 +20,8 @@ void	ft_print(char *str)
 
 	i = -1;
 	while (str[++i] != 10)
-	if (str[i] != 32 && (str[i] < 9 || str[i] > 13))
-		write(1, &str[i], 1);
+		if (str[i] != 32 && (str[i] < 9 || str[i] > 13))
+			write(1, &str[i], 1);
 }
 
 int	ft_strlen(char *str)
@@ -78,6 +78,3 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 	}
 	return (res);
 }
-
-
-

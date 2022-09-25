@@ -6,7 +6,7 @@
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 15:43:35 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/25 17:27:35 by adi-stef         ###   ########.fr       */
+/*   Updated: 2022/09/25 19:21:36 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -24,17 +24,7 @@ void	ft_print(char *str);
 void	ft_print(char *str);
 char	*ft_atoi(char *str);
 void	ft_error(int type);
-
-void	ft_free(char **buf)
-{
-	int	i;
-
-	i = -1;
-	while (buf[++i])
-		free(buf[i]);
-	free(buf[i]);
-	free(buf);
-}
+void	ft_free(char **buf);
 
 int	ft_buflen(char *path)
 {
@@ -59,25 +49,23 @@ int	ft_buflen(char *path)
 	return (len);
 }
 
-char	**ft_make_list(char *path)
+char	**ft_make_list(char *path, int len)
 {
 	char	**buf;
 	char	*str;
 	char	*set;
 	int		file;
-	int		len;
 	int		i;
 
-	len = ft_buflen(path);
 	if (!len)
 		ft_error(1);
 	str = (char *) malloc ((len + 1) * sizeof (char));
 	file = open(path, O_RDONLY);
 	if (file == -1)
-		ft_error(1); // da controllare
+		ft_error(1);
 	i = read(file, str, len);
 	if (i == -1)
-		ft_error(1); // da controllare
+		ft_error(1);
 	str[len] = 0;
 	set = "\n";
 	buf = ft_split(str, set);
@@ -87,14 +75,14 @@ char	**ft_make_list(char *path)
 	return (buf);
 }
 
-void	ft_print_name(char *str, in n)
+void	ft_print_name(char *str)
 {
 	int	i;
-	int	j; // spaces 0:start 1:print 2:during
+	int	j;
 
 	j = 0;
-	i = -1;
-	while (str[++i])
+	i = 0;
+	while (str[i] && str[i] != 10)
 	{
 		if (j == 0 && str[i] != 32)
 			j = 1;
@@ -105,33 +93,33 @@ void	ft_print_name(char *str, in n)
 		}
 		if (j == 1 && str[i] != 32)
 			write(1, &str[i], 1);
+		i++;
 	}
-	if (n)
-		write(1, " ", 1);
+	write(1, " ", 1);
 }
 
-char	*ft_get_name(int i, int	n)
+void	ft_get_name(int i, char **buf)
 {
 	int	j;
-	int	k;
 
-	j = -1;
-	while (buf[i][++j])
+	j = 0;
+	while (buf[i][j] && buf[i][j] != 10)
 	{
 		if (buf[i][j] == 58)
 		{
-			ft_print_name(&buf[i][j + 1], n);
+			ft_print_name(&buf[i][j + 1]);
 			break ;
 		}
+		j++;
 	}
 }
 
-void	ft_print_char(char *nbr, char **buf, int len, int n)
+void	ft_print_char(char *nbr, char **buf, int len)
 {
 	int	i;
-	int	j;
 	int	k;
 
+	k = 0;
 	i = -1;
 	while (buf[++i])
 	{
@@ -142,27 +130,5 @@ void	ft_print_char(char *nbr, char **buf, int len, int n)
 		}
 	}
 	if (k)
-		ft_get_name(i, n);
-}
-
-int	main(int argc, char **argv)
-{
-	char	**buf;
-
-	if (argc < 2)
-		return (1);
-	if (!ft_check_nbr(ft_atoi(argv[1]), "4294967295"))
-	{
-		ft_print("Error\n");
-		return (1);
-	}
-	//if (!ft_check_dict())
-	//{
-	//	ft_error(1);
-	//	return (1);
-	//}
-	buf = ft_make_list("numbers.dict");
-	ft_nbr_parse(argv[1], buf);
-	ft_free(buf);
-
+		ft_get_name(i, buf);
 }
