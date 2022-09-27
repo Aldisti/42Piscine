@@ -1,40 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_abs.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:37:00 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/24 10:58:45 by adi-stef         ###   ########.fr       */
+/*   Created: 2022/09/27 12:08:14 by adi-stef          #+#    #+#             */
+/*   Updated: 2022/09/27 14:17:15 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 
-char	*ft_strdup(char *src)
-{
-	char	*ptr;
-	int		i;
+#ifndef FT_ABS_H
+# define FT_ABS_H
 
-	i = 0;
-	while (src[i])
-		i++;
-	ptr = (char *) malloc (i * sizeof (char));
-	i = -1;
-	while (src[++i])
-		ptr[i] = src[i];
-	ptr[i] = src[i];
-	return (ptr);
-}
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	a[] = "Ciao come stai?";
-	char*	dup;
+# define ABS(Value) ((Value < 0) ? -Value : Value) 
 
-	dup = ft_strdup(a);
-	puts(dup);
-	free(dup);
-}
-*/
+#endif

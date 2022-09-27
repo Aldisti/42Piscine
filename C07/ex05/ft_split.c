@@ -6,7 +6,7 @@
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:09:34 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/23 15:12:15 by adi-stef         ###   ########.fr       */
+/*   Updated: 2022/09/27 11:39:16 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -56,6 +56,7 @@ void	ft_char_nbr(char *str, char *set, char **ptr, int i)
 
 	c = 0;
 	k = 0;
+	j = 0;
 	while (str[++i])
 	{
 		if (!ft_in_char(str[i], set))
@@ -71,8 +72,9 @@ void	ft_char_nbr(char *str, char *set, char **ptr, int i)
 			k++;
 		}
 	}
-	if (str[i] == 0)
+	if (c > 0)
 		ptr[k] = (char *) malloc ((c + 1) * sizeof (char));
+	ptr[k + 1] = 0;
 }
 
 void	ft_fill(char *str, char *set, char **ptr, int i)
@@ -114,13 +116,17 @@ char	**ft_split(char *str, char *charset)
 int	main(void)
 {
 	char	**res;
-	char	str[] = "fCiaoofffcomefftaif";
+	char	str[] = "fCiaofcomefstaif?";
 	char	set[] = "f";
+	int		i;
 
 	res = ft_split(str, set);
-	puts(res[0]);
-	puts(res[1]);
-	puts(res[2]);
+	i = -1;
+	while (++i <= ft_wrd_nbr(str, set))
+	{
+		puts(res[i]);
+		free(res[i]);
+	}
 	free(res);
 }
 */

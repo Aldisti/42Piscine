@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_point.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:37:00 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/24 10:58:45 by adi-stef         ###   ########.fr       */
+/*   Created: 2022/09/27 13:27:01 by adi-stef          #+#    #+#             */
+/*   Updated: 2022/09/27 13:51:27 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 
-char	*ft_strdup(char *src)
+#ifndef FT_POINT_H
+# define FT_POINT_H
+
+typedef struct s_point
 {
-	char	*ptr;
-	int		i;
+	int	x;
+	int	y;
+}	t_point;
 
-	i = 0;
-	while (src[i])
-		i++;
-	ptr = (char *) malloc (i * sizeof (char));
-	i = -1;
-	while (src[++i])
-		ptr[i] = src[i];
-	ptr[i] = src[i];
-	return (ptr);
-}
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	a[] = "Ciao come stai?";
-	char*	dup;
-
-	dup = ft_strdup(a);
-	puts(dup);
-	free(dup);
-}
-*/
+#endif

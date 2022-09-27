@@ -6,7 +6,7 @@
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:54:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/22 15:08:44 by adi-stef         ###   ########.fr       */
+/*   Updated: 2022/09/26 12:28:23 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -22,7 +22,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_fill(char *ptr, char **strs, char *sep, int size)
+void	ft_fill(char *ptr, char **strs, char *sep, int size)
 {
 	int	i;
 	int	j;
@@ -48,7 +48,7 @@ char	*ft_fill(char *ptr, char **strs, char *sep, int size)
 			k++;
 		}
 	}
-	return (ptr);
+	ptr[k] = 0;
 }
 
 char	*ft_strjoin(int size, char **strs, char *sep)
@@ -59,25 +59,29 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 
 	if (size == 0)
 	{
-		ptr = NULL;
+		ptr = (char *) malloc (1 * sizeof (char));
+		ptr[0] = 0;
 		return (ptr);
 	}
 	i = -1;
 	len = ft_strlen(sep) * (size - 1);
 	while (++i < size)
 		len += ft_strlen(strs[i]);
-	ptr = (char *) malloc (len * sizeof (char));
-	return (ft_fill(ptr, strs, sep, size));
+	ptr = (char *) malloc ((len + 1) * sizeof (char));
+	ft_fill(ptr, strs, sep, size);
+	return (ptr);
 }
 /*
 int	main(void)
 {
+	//char	*ptr[] = {"Ciao", "come", "stai", "carissimo", "?"};
 	char	*ptr[] = {"Ciao", "come", "stai"};
 	char	*str;
-	char	sep[] = "\nSEP\n";
+	char	sep[] = "     ";
 
-	str = ft_strjoin(3, ptr, sep);
+	str = ft_strjoin(0, ptr, sep);
 	puts(str);
+	//printf("%c\n", str[28]);
 	free(str);
 }
 */

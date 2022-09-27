@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strs_to_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:37:00 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/24 10:58:45 by adi-stef         ###   ########.fr       */
+/*   Created: 2022/09/27 13:52:10 by adi-stef          #+#    #+#             */
+/*   Updated: 2022/09/27 18:32:53 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
+#include <ft_strs_to_tab.h>
 
 char	*ft_strdup(char *src)
 {
@@ -26,15 +27,35 @@ char	*ft_strdup(char *src)
 	ptr[i] = src[i];
 	return (ptr);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	a[] = "Ciao come stai?";
-	char*	dup;
 
-	dup = ft_strdup(a);
-	puts(dup);
-	free(dup);
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
-*/
+
+struct	s_stock_str	*ft_strs_to_tab(int ac, char **av)
+{
+	t_stock_str	*ptr;
+	int			i;
+
+	ptr = (t_stock_str *) malloc ((ac + 1) * sizeof (t_stock_str));
+	if (ptr == 0)
+	{
+		ptr = 0;
+		return (ptr);
+	}
+	i = -1;
+	while (++i < ac)
+	{
+		ptr[i].size = ft_strlen(av[i]);
+		ptr[i].str = av[i];
+		ptr[i].copy = ft_strdup(av[i]);
+	}
+	ptr[ac].str = 0;
+	return (ptr);
+}
