@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 13:52:10 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/27 18:32:53 by adi-stef         ###   ########.fr       */
+/*   Created: 2022/09/28 10:10:00 by adi-stef          #+#    #+#             */
+/*   Updated: 2022/09/28 17:46:45 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
-#include <ft_strs_to_tab.h>
+#include "ft_stock_str.h"
 
 char	*ft_strdup(char *src)
 {
@@ -20,7 +20,7 @@ char	*ft_strdup(char *src)
 	i = 0;
 	while (src[i])
 		i++;
-	ptr = (char *) malloc (i * sizeof (char));
+	ptr = (char *) malloc ((i + 1) * sizeof (char));
 	i = -1;
 	while (src[++i])
 		ptr[i] = src[i];

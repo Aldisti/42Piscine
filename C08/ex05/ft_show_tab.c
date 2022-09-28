@@ -5,33 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 14:21:34 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/27 15:40:51 by adi-stef         ###   ########.fr       */
+/*   Created: 2022/09/28 10:10:34 by adi-stef          #+#    #+#             */
+/*   Updated: 2022/09/28 10:20:16 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
 #include "ft_stock_str.h"
 
-void	ft_putnbr(int n)
+void	ft_putnbr(int nb)
 {
-	char	c;
+	long	i;
 
-	if (n < 0)
+	i = nb;
+	if (i < 0)
 	{
 		write(1, "-", 1);
-		ft_putnbr((n / 10) * -1);
-		c = (n % 10 * -1 + 48);
-		write(1, &c, 1);
+		i = i * -1;
 	}
-	else if (n > 0)
+	if (i > 9)
 	{
-		ft_putnbr(n / 10);
-		c = (n % 10 + 48);
-		write(1, &c, 1);
+		ft_putnbr(i / 10);
+		ft_putnbr(i % 10);
+	}
+	else
+	{
+		i += 48;
+		write(1, &i, 1);
 	}
 }
 
-void	ft_print(char *str)
+void	ft_putstr(char *str)
 {
 	int	i;
 
@@ -48,9 +51,9 @@ void	ft_show_tab(struct s_stock_str *par)
 	i = -1;
 	while (par[++i].str)
 	{
-		ft_print(par[i].str);
+		ft_putstr(par[i].str);
 		ft_putnbr(par[i].size);
 		write(1, "\n", 1);
-		ft_print(par[i].copy);
+		ft_putstr(par[i].copy);
 	}
 }
