@@ -1,1 +1,0 @@
-cat /etc/passwd | awk 'NR % 2 == 1 && !(substr($1,1,1) == "#") {print $1}' FS=":" | rev | sort -r | head -$FT_LINE2 | tail +$FT_LINE1 | xargs | awk '{$1=$1}; {print $0 }; END {printf "."}' OFS=", "
