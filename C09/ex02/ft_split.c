@@ -6,11 +6,10 @@
 /*   By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:09:34 by adi-stef          #+#    #+#             */
-/*   Updated: 2022/09/28 12:26:49 by adi-stef         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:50:58 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
-#include <stdio.h>
 
 int	ft_in_char(char c, char *set)
 {
@@ -101,6 +100,8 @@ void	ft_fill(char *str, char *set, char **ptr, int i)
 			j++;
 		}
 	}
+	if (c > 0)
+		ptr[j][c] = 0;
 }
 
 char	**ft_split(char *str, char *charset)
@@ -117,12 +118,14 @@ char	**ft_split(char *str, char *charset)
 	{
 		ft_char_nbr(str, charset, ptr, -1);
 		ft_fill(str, charset, ptr, -1);
+		ptr[ft_wrd_nbr(str, charset)] = 0;
 	}
 	else
 		ptr[0] = 0;
 	return (ptr);
 }
 /*
+#include <stdio.h>
 int	main(int i, char **av)
 {
 	char	**res;

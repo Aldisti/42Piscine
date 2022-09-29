@@ -6,19 +6,21 @@
 #    By: adi-stef <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 17:06:06 by adi-stef          #+#    #+#              #
-#    Updated: 2022/09/28 12:01:08 by adi-stef         ###   ########.fr        #
+#    Updated: 2022/09/29 14:24:12 by adi-stef         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-NAME= libft.a
-CC = gcc
-FLAG = -Wall -Wextra -Werror
-SRCS= srcs/ft_putchar.c srcs/ft_putstr.c srcs/ft_strlen.c srcs/ft_strcmp.c srcs/ft_swap.c
-OBJS= srcs/ft_putchar.o srcs/ft_putstr.o srcs/ft_strlen.o srcs/ft_strcmp.o srcs/ft_swap.o
-INCS= includes/
-LIB= ar rc
+NAME = libft.a
+SRC = srcs
+SRCS = ${SRC}/ft_putchar.c ${SRC}/ft_swap.c ${SRC}/ft_putstr.c ${SRC}/ft_strlen.c ${SRC}/ft_strcmp.c
+OBJS = ${SRCS:.c=.o}
+HEADER = includes
+CC = gcc ${CFLAGS}
+CFLAGS = -Wall -Werror -Wextra
+OPTIONS = -I ${HEADER} -c
+RM = rm -f
 
-.o: .c
-	${CC} ${FLAG} -I ${INCS} -c $< -o ${<:.c=.o}
+.c.o:
+	${CC} ${OPTIONS} $< -o ${<:.c=.o}
 
 ${NAME}: ${OBJS}
 	ar rc ${NAME} ${OBJS}
@@ -26,10 +28,10 @@ ${NAME}: ${OBJS}
 
 all: ${NAME}
 
-clean:
-	/bin/rm -f ${OBJS}
+clean: 
+	${RM} ${OBJS}
 
 fclean: clean
-	/bin/rm -f ${NAME}
+	${RM} ${NAME}
 
 re: fclean all
